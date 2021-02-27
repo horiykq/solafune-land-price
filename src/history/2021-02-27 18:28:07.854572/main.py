@@ -4,14 +4,12 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 
-from constants import DATA_DIR
+from constants import DATA_DIR, TARGET
 from modules.lightgbm import lgb_preprocess
 from modules.save_history import save_history
-from modules.verify_gpu import verify_gpu
 
 
 def main():
-    verify_gpu()
     success_save_history = save_history()
     if not success_save_history:
         sys.exit()
