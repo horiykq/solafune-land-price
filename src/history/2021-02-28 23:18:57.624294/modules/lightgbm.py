@@ -32,7 +32,7 @@ def lgb_preprocess(train: pd.DataFrame, test: pd.DataFrame) -> pd.DataFrame:
 
 def lgb_model() -> LGBMModel:
 
-    return LGBMModel()
+    return LGBMModel
 
 
 def lgb_predict(model: LGBMModel, test_data: pd.DataFrame):

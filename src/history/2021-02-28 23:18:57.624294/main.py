@@ -25,7 +25,7 @@ def main():
     print(x.shape, y.shape, test_data.shape)
 
     model = lgb_model()
-    model.fit(x, y)
+    model.fit(X=x, y=y)
 
     preds = lgb_predict(model, test_data)
 
