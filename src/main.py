@@ -5,7 +5,8 @@ import pandas as pd
 import seaborn as sns
 
 from constants import DATA_DIR
-from modules.lightgbm import lgb_model, lgb_predict, lgb_preprocess
+from modules.create_submit_file import create_submit_file
+from modules.lightgbm import lgb_fit, lgb_model, lgb_predict, lgb_preprocess
 from modules.save_history import save_history
 from params import DATA_SPRIT_RATE, SAVE_HISTORY
 
@@ -25,12 +26,15 @@ def main():
     print(x.shape, y.shape, test_data.shape)
 
     model = lgb_model()
-    model.fit(x, y)
+    model = lgb_fit(model, x, y)
 
     preds = lgb_predict(model, test_data)
 
-    for pred in preds:
-        print(pred)
+    success_create_submit = create_submit_file(preds)
+    if success_create_submit:
+        print("CREATE SUBMIT SUCCESS")
+    else:
+        sys.exit()
 
 
 if __name__ == "__main__":

@@ -3,6 +3,9 @@
 BASE_DIR = "./src"
 DATA_DIR = "./data"
 
+SUBMIT_TEMPLATE = f"{DATA_DIR}/UploadFileTemplate.csv"
+SUBMITS_DIR = "./submits"
+
 
 # labels
 
