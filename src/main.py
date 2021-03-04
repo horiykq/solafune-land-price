@@ -4,13 +4,13 @@ import pandas as pd
 
 from constants import DATA_DIR
 from modules.create_submit_file import create_submit_file
+from modules.feature_engineering import feature_engineering
 from modules.fix_seed import fix_seed
-from modules.LGBMRegressor import (LGBMRegressor_fit, LGBMRegressor_model,
-                                   LGBMRegressor_predict,
-                                   LGBMRegressor_preprocess)
-from modules.lightgbm import lgb_fit, lgb_predict, lgb_preprocess
+from modules.lightgbm import lgb_fit, lgb_predict
+from modules.preprocess import preprocess
 from modules.save_history import save_history
-from params import DATA_SPRIT_RATE, SAVE_HISTORY, SEED
+from modules.split_preprocessed_data import split_preprocessed_data
+from params import SAVE_HISTORY, SEED
 
 
 def main():
@@ -30,8 +30,13 @@ def main():
     train = pd.read_csv(f'{DATA_DIR}/TrainDataSet.csv')
     test = pd.read_csv(f'{DATA_DIR}/EvaluationData.csv')
 
-    X_train, X_validation, y_train, y_validation, test_data = lgb_preprocess(
-        train, test)
+    x, y, test_data = preprocess(train, test)
+    x, test_data = feature_engineering(x, test_data)
+
+    X_train, X_validation, y_train, y_validation = split_preprocessed_data(
+        x, y
+    )
+
     print(X_train.shape, X_validation.shape,  y_train.shape,
           y_validation.shape,  test_data.shape)
 
