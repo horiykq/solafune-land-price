@@ -8,7 +8,6 @@ from modules.fix_seed import fix_seed
 from modules.LGBMRegressor import (LGBMRegressor_fit, LGBMRegressor_model,
                                    LGBMRegressor_predict,
                                    LGBMRegressor_preprocess)
-from modules.lightgbm import lgb_fit, lgb_predict, lgb_preprocess
 from modules.save_history import save_history
 from params import DATA_SPRIT_RATE, SAVE_HISTORY, SEED
 
@@ -30,16 +29,15 @@ def main():
     train = pd.read_csv(f'{DATA_DIR}/TrainDataSet.csv')
     test = pd.read_csv(f'{DATA_DIR}/EvaluationData.csv')
 
-    X_train, X_validation, y_train, y_validation, test_data = lgb_preprocess(
-        train, test)
-    print(X_train.shape, X_validation.shape,  y_train.shape,
-          y_validation.shape,  test_data.shape)
+    x, y, test_data = LGBMRegressor_preprocess(train, test)
+    print(x.shape, y.shape, test_data.shape)
 
-    model = lgb_fit(X_train, X_validation, y_train, y_validation)
+    model = LGBMRegressor_model()
+    model = LGBMRegressor_fit(model, x, y)
 
-    pred = lgb_predict(model, test_data)
+    preds = LGBMRegressor_predict(model, test_data)
 
-    success_create_submit = create_submit_file(pred)
+    success_create_submit = create_submit_file(preds)
     if success_create_submit:
         print("CREATE SUBMIT SUCCESS")
     else:
