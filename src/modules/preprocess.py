@@ -3,7 +3,7 @@ import pandas as pd
 from constants import MEAN_LIGHT, PLACE_ID, SUM_LIGHT, TARGET, YEAR
 
 
-def preprocess(train: pd.DataFrame, test: pd.DataFrame) -> pd.DataFrame:
+def preprocess(train: pd.DataFrame, test: pd.DataFrame) -> set[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     y = train[TARGET]
     y = np.log(y + 1)
 

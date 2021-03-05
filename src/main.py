@@ -5,6 +5,7 @@ import pandas as pd
 from constants import DATA_DIR
 from modules.create_submit_file import create_submit_file
 from modules.feature_engineering import feature_engineering
+from modules.feature_importance import feature_importance
 from modules.fix_seed import fix_seed
 from modules.lightgbm import lgb_fit, lgb_predict
 from modules.preprocess import preprocess
@@ -31,7 +32,7 @@ def main():
     test = pd.read_csv(f'{DATA_DIR}/EvaluationData.csv')
 
     x, y, test_data = preprocess(train, test)
-    x, test_data = feature_engineering(x, test_data)
+    x, test_data, features = feature_engineering(x, test_data)
 
     X_train, X_validation, y_train, y_validation = split_preprocessed_data(
         x, y
@@ -49,6 +50,8 @@ def main():
         print("CREATE SUBMIT SUCCESS")
     else:
         sys.exit()
+
+    feature_importance(model, features)
 
 
 if __name__ == "__main__":

@@ -4,7 +4,7 @@ import torch
 import tensorflow as tf
 
 
-def fix_seed(seed: int):
+def fix_seed(seed: int) -> bool:
     try:
         # random
         random.seed(seed)

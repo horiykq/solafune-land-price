@@ -16,7 +16,7 @@ def lgb_fit(X_train: pd.DataFrame, X_validation: pd.DataFrame, y_train: pd.DataF
     return model
 
 
-def lgb_predict(model: Booster, test_data: pd.DataFrame):
+def lgb_predict(model: Booster, test_data: pd.DataFrame) -> list:
 
     pred = model.predict(test_data, num_iteration=model.best_iteration)
     pred = np.exp(pred) - 1

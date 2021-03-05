@@ -6,7 +6,7 @@ import shutil
 from constants import BASE_DIR
 
 
-def save_history():
+def save_history() -> bool:
     try:
         now = datetime.datetime.now()
         sources = glob.glob(f"{BASE_DIR}/*.py")
